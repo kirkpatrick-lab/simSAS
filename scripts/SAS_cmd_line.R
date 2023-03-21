@@ -16,10 +16,17 @@ data = args[1]
 nruns = args[2] #try 10k to start 
 
 set.seed(123)
-beta_prior = rnorm(nruns, mean = 0.004, sd = .004)
+#beta_prior = rnorm(nruns, mean = 0.004, sd = .004)
+#NEW PRIORS! Acc to marks doc 
+x_b = runif(nruns, 0, 1)
+beta_prior = 10^(-(4*x_b + 1))
+
 #f_prior = runif(nruns, min = 0, max = 1)
 set.seed(123)
-f_prior = rbeta(nruns, 0.001, 1)
+#f_prior = rbeta(nruns, 0.001, 1)
+x_f = runif(nruns, 0, 1)
+f_prior = 10^(-3*x_f)
+
 set.seed(123)
 fset = runif(nruns, 0, 1)
 beta_prior[fset > f_prior]= 0
